@@ -1,5 +1,6 @@
 package com.application.mock.service;
 
+import com.application.mock.constant.Status;
 import com.application.mock.dto.requst.CreateUserRequestDTO;
 import com.application.mock.dto.response.CreateUserResponseDTO;
 import com.application.mock.exception.CreateUserException;
@@ -8,6 +9,7 @@ import com.application.mock.model.UserTable;
 import com.application.mock.repository.UserTableRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Transactional;
@@ -28,14 +30,14 @@ public class UserCreateService {
             log.info("User created successfully: {}", userTable);
         } catch (CreateUserException e) {
             log.error("Error creating user: {}", e.getMessage(), e);
-            return builder.status("ERROR")
-                    .statusCode(404)
+            return builder.status(Status.ERROR.name())
+                    .statusCode(HttpStatus.NOT_FOUND.value())
                     .description(e.getMessage())
                     .build();
         }
 
-        CreateUserResponseDTO response = builder.status("OK")
-                .statusCode(200)
+        CreateUserResponseDTO response = builder.status(Status.OK.name())
+                .statusCode(HttpStatus.OK.value())
                 .id(userTable.getId())
                 .build();
         log.info("Returning response: {}", response);
