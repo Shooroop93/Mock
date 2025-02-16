@@ -27,6 +27,7 @@ public class UserTable {
     private String middleName;
     @Column(name = "last_name")
     private String lastName;
+    private String password;
 
     @OneToOne(mappedBy = "owner", cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
     private UserContact contacts;
