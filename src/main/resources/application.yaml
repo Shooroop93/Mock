@@ -1,0 +1,15 @@
+spring:
+  profiles:
+    include:
+      - "secrets"
+  application:
+    name: mock
+
+  jpa:
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+    show-sql: true
+    hibernate:
+      ddl-auto: none
+  liquibase:
+    enabled: false
+    change-log: classpath:/db/changelog/changelog-master.yaml
